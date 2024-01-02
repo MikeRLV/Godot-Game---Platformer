@@ -1,0 +1,280 @@
+[gd_scene load_steps=38 format=3 uid="uid://dcroh6820byfq"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_3wcrf"]
+[ext_resource type="Script" path="res://CSM.gd" id="3_vmmdr"]
+[ext_resource type="Script" path="res://Idle.gd" id="4_ajefg"]
+[ext_resource type="Script" path="res://Jumping.gd" id="5_sj771"]
+[ext_resource type="Script" path="res://Moving.gd" id="6_ipp86"]
+[ext_resource type="Script" path="res://Climbing.gd" id="7_a0no8"]
+[ext_resource type="Script" path="res://Label.gd" id="8_hri6c"]
+[ext_resource type="Texture2D" uid="uid://mveqa4vtbd5j" path="res://Assets/1 Biker/Biker_doublejump.png" id="9_8snyn"]
+[ext_resource type="Texture2D" uid="uid://b76kxbw8gv0lh" path="res://Assets/1 Biker/Biker_jump.png" id="10_vsr42"]
+[ext_resource type="Texture2D" uid="uid://c5fml6ef10m0d" path="res://Assets/1 Biker/Biker_idle.png" id="11_id16x"]
+[ext_resource type="Texture2D" uid="uid://cl6bsn2ivlspd" path="res://Assets/1 Biker/Biker_run.png" id="12_o83dy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_us15h"]
+atlas = ExtResource("9_8snyn")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hud3l"]
+atlas = ExtResource("9_8snyn")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eanid"]
+atlas = ExtResource("9_8snyn")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ynki"]
+atlas = ExtResource("9_8snyn")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8jlbl"]
+atlas = ExtResource("9_8snyn")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cxfv0"]
+atlas = ExtResource("9_8snyn")
+region = Rect2(240, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yqxqg"]
+atlas = ExtResource("10_vsr42")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gujsc"]
+atlas = ExtResource("11_id16x")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p3qmp"]
+atlas = ExtResource("11_id16x")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hbtbv"]
+atlas = ExtResource("11_id16x")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kaoyq"]
+atlas = ExtResource("11_id16x")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tepn8"]
+atlas = ExtResource("10_vsr42")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cerxm"]
+atlas = ExtResource("10_vsr42")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_akswn"]
+atlas = ExtResource("10_vsr42")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ilv6c"]
+atlas = ExtResource("10_vsr42")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_crd3v"]
+atlas = ExtResource("12_o83dy")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fkl0k"]
+atlas = ExtResource("12_o83dy")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8dc0w"]
+atlas = ExtResource("12_o83dy")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ef48"]
+atlas = ExtResource("12_o83dy")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1iaxi"]
+atlas = ExtResource("12_o83dy")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bvfyu"]
+atlas = ExtResource("12_o83dy")
+region = Rect2(240, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p50xa"]
+atlas = ExtResource("10_vsr42")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uxcpj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_us15h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hud3l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eanid")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ynki")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8jlbl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cxfv0")
+}],
+"loop": true,
+"name": &"Double_Jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yqxqg")
+}],
+"loop": true,
+"name": &"Grab",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gujsc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p3qmp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hbtbv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kaoyq")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tepn8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cerxm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_akswn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ilv6c")
+}],
+"loop": true,
+"name": &"Jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_crd3v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fkl0k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8dc0w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ef48")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1iaxi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bvfyu")
+}],
+"loop": true,
+"name": &"Run",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p50xa")
+}],
+"loop": true,
+"name": &"Slide",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_btfcl"]
+radius = 4.0
+height = 26.0
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_yxche"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_bua7r"]
+states/BlendSpace1D/node = SubResource("AnimationNodeBlendSpace1D_yxche")
+states/BlendSpace1D/position = Vector2(383, 122)
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_3wcrf")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(8, -4)
+scale = Vector2(0.850261, 0.75)
+sprite_frames = SubResource("SpriteFrames_uxcpj")
+animation = &"Idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("CapsuleShape2D_btfcl")
+
+[node name="CSM" type="Node" parent="." node_paths=PackedStringArray("current_state", "character")]
+script = ExtResource("3_vmmdr")
+current_state = NodePath("Idle")
+character = NodePath("..")
+
+[node name="Idle" type="Node" parent="CSM" node_paths=PackedStringArray("MovingState", "JumpingState")]
+script = ExtResource("4_ajefg")
+MovingState = NodePath("../Moving")
+JumpingState = NodePath("../Jumping")
+
+[node name="Jumping" type="Node" parent="CSM" node_paths=PackedStringArray("MovingState", "ClimbingState")]
+script = ExtResource("5_sj771")
+MovingState = NodePath("../Moving")
+ClimbingState = NodePath("../Climbing")
+
+[node name="Moving" type="Node" parent="CSM" node_paths=PackedStringArray("IdleState", "JumpingState", "ClimbingState")]
+script = ExtResource("6_ipp86")
+IdleState = NodePath("../Idle")
+JumpingState = NodePath("../Jumping")
+ClimbingState = NodePath("../Climbing")
+
+[node name="Climbing" type="Node" parent="CSM" node_paths=PackedStringArray("MovingState", "JumpingState")]
+script = ExtResource("7_a0no8")
+MovingState = NodePath("../Moving")
+JumpingState = NodePath("../Jumping")
+
+[node name="Label" type="Label" parent="." node_paths=PackedStringArray("state_machine")]
+offset_left = -45.0
+offset_top = -41.0
+offset_right = 74.0
+offset_bottom = -18.0
+text = "State:"
+script = ExtResource("8_hri6c")
+state_machine = NodePath("../CSM")
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+root_node = NodePath(".")
+tree_root = SubResource("AnimationNodeStateMachine_bua7r")
+anim_player = NodePath("../AnimationPlayer")
+parameters/BlendSpace1D/blend_position = 0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../AnimationTree")
+
+[node name="LWallJump" type="Timer" parent="."]
+process_callback = 0
+wait_time = 5.0
+one_shot = true
+
+[node name="RWallJump" type="Timer" parent="."]
+process_callback = 0
+wait_time = 5.0
+one_shot = true
+
+[connection signal="timeout" from="LWallJump" to="CSM/Climbing" method="_on_l_wall_jump_timeout"]
+[connection signal="timeout" from="RWallJump" to="CSM/Climbing" method="_on_r_wall_jump_timeout"]

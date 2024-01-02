@@ -1,0 +1,52 @@
+[gd_scene load_steps=4 format=3 uid="uid://8ijn5j4crf15"]
+
+[ext_resource type="PackedScene" uid="uid://dcroh6820byfq" path="res://player.tscn" id="1_n1rcf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_45lg4"]
+size = Vector2(185, 418)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b8pqq"]
+size = Vector2(892, 135)
+
+[node name="World" type="Node2D"]
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("1_n1rcf")]
+position = Vector2(358, 363)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(89, 362)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(475, -159)
+shape = SubResource("RectangleShape2D_45lg4")
+
+[node name="Polygon2D3" type="Polygon2D" parent="StaticBody2D"]
+position = Vector2(4, -155)
+color = Color(0, 0, 0, 0.0901961)
+polygon = PackedVector2Array(-95.1875, -208.312, 92.8125, -209.312, 93.8125, 208.688, -92.1875, 209.688)
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(89, 362)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+visibility_layer = 2
+position = Vector2(3.5, -153)
+shape = SubResource("RectangleShape2D_45lg4")
+debug_color = Color(0.278431, 0.501961, 1, 0.419608)
+
+[node name="Polygon2D" type="Polygon2D" parent="StaticBody2D2"]
+position = Vector2(475, -162)
+color = Color(0, 0, 0, 0.0235294)
+polygon = PackedVector2Array(-95.1875, -208.312, 92.8125, -209.312, 93.8125, 208.688, -92.1875, 209.688)
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+modulate = Color(0.184314, 1, 1, 1)
+position = Vector2(572, 449)
+shape = SubResource("RectangleShape2D_b8pqq")
+
+[node name="Polygon2D2" type="Polygon2D" parent="StaticBody2D3"]
+position = Vector2(456, 444)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(-327, -66, 567, -62, 568, 69, -326, 68)
