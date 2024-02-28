@@ -1,115 +1,63 @@
 extends State
 
 class_name ClimbingState
+
 @export var friction = 0.03
 @export var wall_jump_pushback: float = 300
 @export var jump_height : float = -200
-@warning_ignore("shadowed_global_identifier")
-@export var MovingState: State
-@warning_ignore("shadowed_global_identifier")
-@export var JumpingState: State
-@warning_ignore("shadowed_global_identifier")
-@onready var ltimer = $"../../LWallJump"
-@onready var rtimer = $"../../RWallJump"
-
-
-
-var rwallslide
-var lwallslide
-var wallgrab
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-var velocity = Vector2()
-var wallslide
+@export var Moving_State: State
+@export var Jumping_State: State
+@export var rKickoff_State : State
+@export var lKickoff_State : State
+@export var wall_slide_anim : String = "Wall_slide"
+@export var wall_cling_anim : String = "Wall_cling"
+@export var jump_anim : String = "Jump"
+@export var move_anim : String = "Idle"
+@onready var l_wall = $"../../LWallCollide"
+@onready var r_wall = $"../../RWallCollide"
+@onready var wall_hop_timer = $"../../wall_hop_timer"
 
 func _physics_process(_delta):
 	state_check()
 	jump()
-	rwall_slide()
 	lwall_slide()
-	rwall_jump()
-	lwall_jump()
-	reset_timer()
-	#debug()
-
-	
-
-#func debug():
-	#if rtimer.is_stopped():
-		#print("Rtimer Stopped")
-	#else:
-		#print("Rtimer On")
+	rwall_slide()
+	rwall_grab()
+	lwall_grab()
 
 func state_check():
-	if(character.is_on_floor_only()):
-		next_state = MovingState
-	if(character.velocity.y != 0) && wallslide==false:
-		next_state = JumpingState
+	if(character.is_on_floor()):
+		next_state = Moving_State
+		playback.travel("Move")
+	if(character.velocity.y != 0) && !character.is_on_wall_only():
+		next_state = Jumping_State
 		
 
-func rwall_slide():
-	rwallslide = false
-	if character.is_on_wall_only() && (Input.is_action_pressed("ui_right")):
-		character.velocity.y =  friction
-		rwallslide = true
-		rwall_grab()
-		return
-
 func lwall_slide():
-	lwallslide = false
-	if character.is_on_wall_only() && (Input.is_action_pressed("ui_left")):
+	if character.is_on_wall() and Input.is_action_pressed("ui_left"):
 		character.velocity.y = friction
-		lwallslide = true
-		lwall_grab()
-		return
+		playback.travel("Wall_slide")
 
-func wallcheck():
-	if rwallslide == true:
-		wallslide = true
-	if lwallslide == true:
-		wallslide = true
-	return
 
-func lwall_grab():
-		if lwallslide == true && Input.is_action_pressed("ui_accept"):
-			character.velocity.y = -16.35
-			wallgrab = true
-			lwall_jump()
-		return
+func rwall_slide():
+	if character.is_on_wall() and Input.is_action_pressed("ui_right"):
+		character.velocity.y = friction
+		playback.travel("Wall_slide")
+
 
 func rwall_grab():
-		if rwallslide == true && Input.is_action_pressed("ui_accept"):
-			character.velocity.y = -16.35
-			wallgrab = true
-			rwall_jump()
-		return
+	if Input.is_action_pressed("ui_accept") && r_wall.is_colliding():
+		character.velocity.y = -16.35
+		playback.travel("Wall_cling")
+	if Input.is_action_just_released("ui_accept") && r_wall.is_colliding():
+		next_state = rKickoff_State
 
-#&& rtimer.is_stopped(): is causing the break in the r wall jump code. Try to find out why it's not working.
+func lwall_grab():
+	if Input.is_action_pressed("ui_accept") && l_wall.is_colliding():
+		character.velocity.y = -16.35
+		playback.travel("Wall_cling")
+	if Input.is_action_just_released("ui_accept") && l_wall.is_colliding():
+		next_state = lKickoff_State
 
-func rwall_jump():
-	if rwallslide == true && wallgrab == true:
-		if Input.is_action_just_pressed("ui_left"):
-			character.velocity.x = -wall_jump_pushback * 4
-			character.velocity.y = jump_height * 2
-			next_state = JumpingState
-			rtimer.start()
-			return
-
-func lwall_jump():
-	if lwallslide == true && wallgrab == true && ltimer.is_stopped():
-		if Input.is_action_just_pressed("ui_right"):
-			character.velocity.x = wall_jump_pushback * 4
-			character.velocity.y = jump_height * 2
-			next_state = JumpingState
-			ltimer.start()
-			return
-
-func reset_timer():
-	if character.is_on_floor():
-		ltimer.stop()
-	if character.is_on_floor():
-		rtimer.stop()
-
-func _on_r_wall_jump_timeout():
-	pass # Replace with function body.
-func _on_l_wall_jump_timeout():
-	pass # Replace with function body.
+func _on_wall_hop_timer_timeout():
+	pass

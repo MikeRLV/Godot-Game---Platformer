@@ -1,7 +1,7 @@
 extends Node
 
 class_name CharacterStateMachine
-
+@export var animation_tree : AnimationTree
 @export var current_state : State
 @export var character : CharacterBody2D
 var states : Array[State]
@@ -13,6 +13,7 @@ func _ready():
 			
 			#Set the states up with what they need to function
 			child.character = character
+			child.playback = animation_tree["parameters/playback"]
 		else:
 			push_warning("Child" + child.name + "is not a State for CSM")
 
@@ -21,7 +22,9 @@ func _physics_process(delta):
 		switch_states(current_state.next_state)
 		
 	current_state.state_process(delta)
-	#print(current_state)
+	
+
+
 
 func check_if_can_move():
 	return current_state.can_move

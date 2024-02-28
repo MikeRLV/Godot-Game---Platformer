@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1xfdk0a1lw6r"]
+
+[ext_resource type="Script" path="res://pit_sensor.gd" id="1_y41p7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2jigv"]
+size = Vector2(2143, 94)
+
+[node name="PitSensor" type="Area2D"]
+collision_layer = 4
+script = ExtResource("1_y41p7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-745.5, 10)
+shape = SubResource("RectangleShape2D_2jigv")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

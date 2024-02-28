@@ -2,38 +2,37 @@ extends State
 
 class_name JumpingState
 
-@export var MovingState : State
-@export var ClimbingState : State
+@export var Moving_State : State
+@export var Climbing_State : State
 @export var double_jump_velocity : float = - 300
-var velocity = Vector2()
-@onready var ltimer = $"../../LWallJump"
-@onready var rtimer = $"../../RWallJump"
-
-var has_double_jumped = false
+@export var double_jump_anim : String = "Double_Jump"
+@export var running  : String = "Move"
+@onready var jump_timer = $"../../DoubleJump"
 
 
-func state_process(delta):
+func state_process(_delta):
 	if(character.is_on_floor_only()):
-		next_state = MovingState
-	
-	if(character.is_on_wall_only()) && (Input.is_action_pressed("ui_right")):
-		next_state = ClimbingState
-		
-	if(character.is_on_wall_only()) && (Input.is_action_pressed("ui_left")):
-		next_state = ClimbingState
-	
+		next_state = Moving_State
+		playback.travel("Move")
+
+	if(character.is_on_wall_only()):
+		next_state = Climbing_State
 
 func state_input(event : InputEvent):
-	if(event.is_action_pressed("ui_accept") && ! has_double_jumped):
+	if(event.is_action_pressed("ui_accept") && jump_timer.is_stopped()):
+		jump_timer.start()
 		double_jump()
 
 func on_exit():
-	if(next_state == MovingState):
-		has_double_jumped = false
-	if(next_state == ClimbingState):
-		has_double_jumped = false
+	if(next_state == Moving_State):
+		jump_timer.stop()
+	if(next_state == Climbing_State):
+		jump_timer.stop()
+
 func double_jump():
 	character.velocity.y = double_jump_velocity
 	has_double_jumped = true
-	#ltimer.stop()
-	#rtimer.stop()
+	playback.travel("Double_Jump")
+
+func _on_double_jump_timeout():
+	pass # Replace with function body.
